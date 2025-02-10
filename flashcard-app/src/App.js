@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
 import SearchBar from './search-bar';
+import VocabList from './VocabList';
 
 function App() {
   const [words, setWords] = useState([]);

@@ -5,16 +5,43 @@ from bs4 import BeautifulSoup
 import re
 import nltk
 from collections import Counter
+import random
 
 # Ensure required nltk resources are downloaded
-nltk.download('punkt')
+nltk.download('punkt_tab')
 
 app = Flask(__name__)
 CORS(app)
 
+# Sample vocabulary list
+VOCAB_LIST = [
+    {"word": "resilient", "definition": "able to recover quickly"},
+    {"word": "meticulous", "definition": "showing great attention to detail"},
+    {"word": "adept", "definition": "very skilled"},
+    {"word": "ephemeral", "definition": "lasting for a very short time"},
+    {"word": "candid", "definition": "truthful and straightforward"},
+    {"word": "pragmatic", "definition": "dealing with things practically"},
+    {"word": "tenacious", "definition": "not giving up easily"},
+    {"word": "ubiquitous", "definition": "present everywhere"},
+    {"word": "vex", "definition": "to annoy or worry someone"},
+    {"word": "zealous", "definition": "having strong enthusiasm"},
+    {"word": "lucid", "definition": "expressed clearly"},
+    {"word": "esoteric", "definition": "understood by only a small group"},
+    {"word": "altruistic", "definition": "selflessly concerned for others"},
+]
+
+
+
+
 @app.route('/')
 def home():
     return jsonify({"message": "Flask server is running!"})
+
+@app.route('/vocab', methods=['GET'])
+def get_vocab():
+    random_vocab = random.sample(VOCAB_LIST, 10)  # Select 10 random words
+    return jsonify(random_vocab)
+
 
 @app.route('/scrape', methods=['POST'])
 def scrape_article():
